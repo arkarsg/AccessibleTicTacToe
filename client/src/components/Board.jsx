@@ -1,7 +1,17 @@
+import Tile from "./Tile";
+
 const Board = () => {
   return (
-    <div>
-      <h2>Board</h2>
+    <div className="board">
+        <Tile />
+        <Tile />
+        <Tile />
+        <Tile />
+        <Tile />
+        <Tile />
+        <Tile />
+        <Tile />
+        <Tile />
     </div>
   );
 };
