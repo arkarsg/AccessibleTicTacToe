@@ -5,49 +5,9 @@ import { drawCheck, winCheck } from "../utils/GameUtils";
 const PLAYER_X = "X";
 const PLAYER_O = "O";
 
-const Board = ({}) => {
-  const [isActive, setIsActive] = useState(true);
-  const [player, setPlayer] = useState(PLAYER_X);
-  const [tiles, setTiles] = useState(Array(9).fill(""));
-
-  let status;
-
-  function handleTileClick(i) {
-    if (tiles[i] !== "") {
-      return;
-    }
-    if (!isActive) {
-      return;
-    }
-
-    const nextTiles = tiles.slice();
-    if (player === PLAYER_X) {
-      nextTiles[i] = PLAYER_X;
-    } else {
-      nextTiles[i] = PLAYER_O;
-    }
-    setTiles(nextTiles);
-
-    if (winCheck(nextTiles, player) || drawCheck(nextTiles)) {
-      setIsActive(false);
-      return;
-    }
-    const nextPlayer = player === PLAYER_X ? PLAYER_O : PLAYER_X;
-    setPlayer(nextPlayer);
-  }
-
-  if (winCheck(tiles, player)) {
-    status = `Winner ${player}`;
-  } else if (drawCheck(tiles)) {
-    status = "Game ended in a draw";
-  } else {
-    const nextPlayer = player === PLAYER_X ? PLAYER_X : PLAYER_O;
-    status = "Next player: " + nextPlayer;
-  }
-
+const Board = ({tiles, handleTileClick}) => {
   return (
     <>
-      <div className="status">{status}</div>
       <div className="board">
         <Tile onClick={() => handleTileClick(0)} value={tiles[0]} />
         <Tile onClick={() => handleTileClick(1)} value={tiles[1]} />
