@@ -1,9 +1,4 @@
-import { useState } from "react";
 import Tile from "./Tile";
-import { drawCheck, winCheck } from "../utils/GameUtils";
-
-const PLAYER_X = "X";
-const PLAYER_O = "O";
 
 const Board = ({tiles, handleTileClick}) => {
   return (
