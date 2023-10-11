@@ -6,8 +6,8 @@ function setupSocketServer(httpServer) {
     methods: ["GET", "POST"],
   });
 
-  io.on("connection", (socket) => {
-    console.log("client connected: ", socket.id);
+  io.on("connection", (data) => {
+    console.log("client connected: ", data.id);
   });
 }
 
