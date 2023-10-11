@@ -1,24 +1,19 @@
 const express = require("express");
-const app = express();
 const cors = require("cors");
-const mongoose = require("mongoose");
+const http = require("http");
+const { setupSocketServer } = require("./socketServer");
 
 require("dotenv").config({ path: "./.env" });
 
 const PORT = process.env.PORT || 8800;
-mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    app.get("/", (req, res) => {
-      res.send("Hello World");
-    });
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running at http://localhost:${PORT}`);
-    });
-  })
-  .catch((error) => {
-    console.log(`Did not connect... ${error}`);
-  });
+const app = express();
+app.use(cors());
+
+const server = http.createServer(app);
+setupSocketServer(server);
+
+server.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
+});
+// socket server
+
