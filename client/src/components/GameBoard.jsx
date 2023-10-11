@@ -1,21 +1,38 @@
-import { useState } from "react";
+import { useState, useContext, useEffect, useCallback } from "react";
 import Board from "./Board";
 import { drawCheck, winCheck } from "../utils/GameUtils";
+import { SocketContext } from "../context/socket";
 
 const PLAYER_X = "X";
 const PLAYER_O = "O";
 
-const GameBoard = () => {
+const GameBoard = ({ room }) => {
+  const socket = useContext(SocketContext);
+
   const [tiles, setTiles] = useState(Array(9).fill(""));
-  const [isActive, setIsActive] = useState(true);
+  const [canPlay, setCanPlay] = useState(true);
   const [player, setPlayer] = useState(PLAYER_X);
   const [gameStatus, setGameStatus] = useState("");
+  const [players, setPlayers] = useState([]);
+
+  useEffect(() => {
+    socket.on("updateGame", (index) => {
+      setTiles((prevTiles) => ({ ...prevTiles, [index]: "O" }));
+      setCanPlay(true);
+    });
+
+    socket.on("roomMembers", (members) => {
+      setPlayers(members);
+    });
+
+    return () => {
+      socket.off("updateGame");
+      socket.off("roomMembers");
+    };
+  }, []);
 
   function handleTileClick(i) {
     if (tiles[i] !== "") {
-      return;
-    }
-    if (!isActive) {
       return;
     }
 
@@ -30,12 +47,10 @@ const GameBoard = () => {
     if (winCheck(nextTiles, player)) {
       const winStatus = `Winner: ${player}`;
       setGameStatus(winStatus);
-      setIsActive(false);
       return;
     } else if (drawCheck(nextTiles)) {
       const drawStatus = "Game ended in a draw";
       setGameStatus(drawStatus);
-      setIsActive(false);
       return;
     }
 
@@ -45,7 +60,6 @@ const GameBoard = () => {
 
   function handleReset() {
     setTiles(Array(9).fill(""));
-    setIsActive(true);
     setPlayer(PLAYER_X);
     setGameStatus("");
   }
@@ -53,10 +67,15 @@ const GameBoard = () => {
   return (
     <div>
       <h1>Accessible Tic Tac Toe for screen readers</h1>
+      <h1>Room: {room}</h1>
       <Board tiles={tiles} handleTileClick={handleTileClick} />
       <h2>{gameStatus}</h2>
       <h2>{player}</h2>
-      <button onClick={handleReset}>Reset Game</button>
+      <ul>
+        {players.map((memberId) => (
+          <li key={memberId}>{memberId}</li>
+        ))}
+      </ul>
     </div>
   );
 };

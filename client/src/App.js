@@ -1,20 +1,20 @@
 import { SocketContext, socket } from "./context/socket";
 import GameBoard from "./components/GameBoard";
-import { WS_SERVER } from "./utils/config";
+import Room from "./components/Room";
 
 import "./App.css";
 
-const SERVER = WS_SERVER;
-
 function App() {
-  socket.on("connection", (data) => {
-    console.log(data);
-  });
+  const dummyRoom = 1;
+
+  if (dummyRoom) {
+    socket.emit("join", dummyRoom);
+  }
 
   return (
     <SocketContext.Provider value={socket}>
       <div>
-        <GameBoard />
+        <GameBoard room={dummyRoom} />
       </div>
     </SocketContext.Provider>
   );
