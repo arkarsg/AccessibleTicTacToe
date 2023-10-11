@@ -2,6 +2,11 @@
  * Common util functions for game
  */
 
+
+
+export const PLAYER_X = "X";
+export const PLAYER_O = "O";
+
 /**
  * Checks if the game is won by a player given a board state
  *
@@ -57,9 +62,19 @@ export function winCheck(tiles, currentPlayer) {
 /**
  * Checks if the game is drawn. The game is drawn if there are no winners and there are no more moves left
  *
- * @params tiles 1D representation of the tiles in the game board
+ * @param tiles 1D representation of the tiles in the game board
  * @returns boolean true if the game is drawn, false otherwise
  */
 export function drawCheck(tiles) {
   return !tiles.includes("");
+}
+
+/**
+ * Return the next player that should make the move
+ * @param player player that currently made the move
+ * @return The next player that should make the move
+ */
+export function switchPlayer(player) {
+  const nextPlayer = player === PLAYER_O ? PLAYER_X : PLAYER_O;
+  return nextPlayer;
 }

@@ -20,6 +20,10 @@ function setupSocketServer(httpServer) {
       io.to(roomName).emit("roomMembers", roomMembers.get(roomName));
     });
 
+    socket.on("play", ({ room, tiles, player}) => {
+      socket.broadcast.to(room).emit("updateGame", { tiles, player });
+    });
+
     socket.on("disconnet", () => {
       for (const [roomName, members] of roomMembers.entries()) {
         const index = members.indexOf(socket.id);

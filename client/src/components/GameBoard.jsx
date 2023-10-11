@@ -1,10 +1,13 @@
-import { useState, useContext, useEffect, useCallback } from "react";
+import { useState, useContext, useEffect } from "react";
 import Board from "./Board";
-import { drawCheck, winCheck } from "../utils/GameUtils";
+import {
+  drawCheck,
+  winCheck,
+  PLAYER_O,
+  PLAYER_X,
+  switchPlayer,
+} from "../utils/GameUtils";
 import { SocketContext } from "../context/socket";
-
-const PLAYER_X = "X";
-const PLAYER_O = "O";
 
 const GameBoard = ({ room }) => {
   const socket = useContext(SocketContext);
@@ -16,8 +19,9 @@ const GameBoard = ({ room }) => {
   const [players, setPlayers] = useState([]);
 
   useEffect(() => {
-    socket.on("updateGame", (index) => {
-      setTiles((prevTiles) => ({ ...prevTiles, [index]: "O" }));
+    socket.on("updateGame", (gameState) => {
+      setTiles(gameState.tiles);
+      setPlayer(gameState.player);
       setCanPlay(true);
     });
 
@@ -29,40 +33,30 @@ const GameBoard = ({ room }) => {
       socket.off("updateGame");
       socket.off("roomMembers");
     };
-  }, []);
+  }, [socket]);
 
-  function handleTileClick(i) {
-    if (tiles[i] !== "") {
-      return;
+  const handleTileClick = (i) => {
+    if (canPlay && tiles[i] === "") {
+      setCanPlay(false);
+      const nextTiles = [...tiles];
+      nextTiles[i] = player;
+      setTiles(nextTiles);
+      socket.emit("play", {
+        room,
+        tiles: nextTiles,
+        player: switchPlayer(player),
+      });
+
     }
+  };
 
-    const nextTiles = tiles.slice();
-    if (player === PLAYER_X) {
-      nextTiles[i] = PLAYER_X;
-    } else {
-      nextTiles[i] = PLAYER_O;
+  useEffect(() => {
+    if (winCheck(tiles, player)) {
+      setGameStatus(`Winner: ${player}`);
+    } else if (drawCheck(tiles)) {
+      setGameStatus("Game ended in a draw")
     }
-    setTiles(nextTiles);
-
-    if (winCheck(nextTiles, player)) {
-      const winStatus = `Winner: ${player}`;
-      setGameStatus(winStatus);
-      return;
-    } else if (drawCheck(nextTiles)) {
-      const drawStatus = "Game ended in a draw";
-      setGameStatus(drawStatus);
-      return;
-    }
-
-    const nextPlayer = player === PLAYER_X ? PLAYER_O : PLAYER_X;
-    setPlayer(nextPlayer);
-  }
-
-  function handleReset() {
-    setTiles(Array(9).fill(""));
-    setPlayer(PLAYER_X);
-    setGameStatus("");
-  }
+  }, [tiles, player])
 
   return (
     <div>
