@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
+
 const Welcome = () => {
   return (
-    <div className="container flex flex-col items-center px-6 py-20 sm:py-10 mx-auto mt-10 space-y-0 md:space-y-0 md:flex-row">
-      <div className="flex flex-col space-y-5 md:w-1/2">
+    <div className="w-fit relative container flex flex-col items-center px-6 py-20 sm:py-10 mx-auto mt-10 md:space-y-0 md:flex-row">
+      <div className="flex flex-col px-5 space-y-5 md:w-1/2">
         <div>
           <h1 className="max-w text-3xl text-zinc-900 font-bold text-left sm:text-3xl">
             Play tic tac toe with another player
@@ -19,6 +21,13 @@ const Welcome = () => {
             piece
           </p>
         </div>
+      </div>
+      <div className="absolute relative px-10 md:w-1/2 flex flex-col">
+        <Link to="/">
+          <button className="inset-x-0 bottom-0 flex w-full justify-center rounded-md px-3 py-1.5 bg-gradient-to-r from-fuchsia-700 to-purple-600 text-white text-m font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            Create Room
+          </button>
+        </Link>
       </div>
     </div>
   );
