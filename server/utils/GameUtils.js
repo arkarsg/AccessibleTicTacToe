@@ -2,12 +2,10 @@
  * Common util functions and variables for game
  */
 
+const PLAYER_X = "X";
+const PLAYER_O = "O";
 
-
-export const PLAYER_X = "X";
-export const PLAYER_O = "O";
-
-export const GAME_STATUS = {
+module.exports.GAME_STATUS = {
   WIN: "You win!",
   LOSE: "You lost",
   DRAW: "It's a draw!",
@@ -20,7 +18,7 @@ export const GAME_STATUS = {
  * @param currentPlayer player that made the previous move
  * @returns boolean true if currentPlayer is the winner, false otherwise
  */
-export function winCheck(tiles, currentPlayer) {
+module.exports.winCheck = (tiles, currentPlayer) => {
   let roundWon = false;
 
   // row check
@@ -71,7 +69,7 @@ export function winCheck(tiles, currentPlayer) {
  * @param tiles 1D representation of the tiles in the game board
  * @returns boolean true if the game is drawn, false otherwise
  */
-export function drawCheck(tiles) {
+module.exports.drawCheck = (tiles) => {
   return !tiles.includes("");
 }
 
@@ -80,7 +78,7 @@ export function drawCheck(tiles) {
  * @param player player that currently made the move
  * @return The next player that should make the move
  */
-export function switchPlayer(player) {
+module.exports.switchPlayer = (player) => {
   const nextPlayer = player === PLAYER_O ? PLAYER_X : PLAYER_O;
   return nextPlayer;
 }

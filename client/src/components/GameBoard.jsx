@@ -1,13 +1,5 @@
 import { useState, useContext, useEffect } from "react";
 import Board from "./Board";
-import {
-  drawCheck,
-  winCheck,
-  PLAYER_O,
-  PLAYER_X,
-  switchPlayer,
-  GAME_STATUS,
-} from "../utils/GameUtils";
 import { SocketContext } from "../context/socket";
 
 const GameBoard = ({ room }) => {

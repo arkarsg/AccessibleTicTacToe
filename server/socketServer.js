@@ -1,3 +1,5 @@
+const gameUtils = require("./utils/GameUtils");
+
 function setupSocketServer(httpServer) {
   const io = require("socket.io")(httpServer, {
     cors: {
@@ -25,11 +27,14 @@ function setupSocketServer(httpServer) {
       let playerSign = roomMembers.get(roomName).length > 1 ? "O" : "X";
       /** Assign sign to client */
       io.sockets.sockets.get(socket.id).emit("assignPlayers", playerSign);
-
     });
 
     socket.on("playTile", ({ room, tiles, player, opponent }) => {
       socket.broadcast.to(room).emit("updateGame", { tiles, opponent });
+    });
+
+    socket.on("changeStatus", (message) => {
+      socket.broadcast.to(room).emit("updateStatus", message);
     });
 
     socket.on("disconnect", () => {
