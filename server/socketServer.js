@@ -9,22 +9,30 @@ function setupSocketServer(httpServer) {
   const roomMembers = new Map();
 
   io.on("connection", (socket) => {
-    console.log("client connected: ", socket.id);
-
     socket.on("join", (roomName) => {
       socket.join(roomName);
+      console.log(`${socket.id} connected to ${roomName}`);
+
+      /** Create room if it does not exist */
       if (!roomMembers.has(roomName)) {
         roomMembers.set(roomName, []);
       }
       roomMembers.get(roomName).push(socket.id);
-      io.to(roomName).emit("roomMembers", roomMembers.get(roomName));
+      // Emit that a player has joined the room (incl client)
+      io.to(roomName).emit("joinRoom", roomMembers.get(roomName));
+
+      /** Set the first player in the room to X */
+      let playerSign = roomMembers.get(roomName).length > 1 ? "O" : "X";
+      /** Assign sign to client */
+      io.sockets.sockets.get(socket.id).emit("assignPlayers", playerSign);
+
     });
 
-    socket.on("play", ({ room, tiles, player}) => {
-      socket.broadcast.to(room).emit("updateGame", { tiles, player });
+    socket.on("playTile", ({ room, tiles, player, opponent }) => {
+      socket.broadcast.to(room).emit("updateGame", { tiles, opponent });
     });
 
-    socket.on("disconnet", () => {
+    socket.on("disconnect", () => {
       for (const [roomName, members] of roomMembers.entries()) {
         const index = members.indexOf(socket.id);
         if (index !== -1) {
