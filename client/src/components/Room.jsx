@@ -1,7 +1,12 @@
 import GameBoard from "./GameBoard";
+import { socket } from "../context/socket";
 
 const Room = () => {
   const dummyRoom = 1;
+
+  if (dummyRoom) {
+    socket.emit("join", dummyRoom);
+  }
   return (
     <section>
       <div className="mt-10 text-center py-4">
@@ -12,7 +17,7 @@ const Room = () => {
           </span>
         </h2>
       </div>
-      <GameBoard />
+      <GameBoard room={dummyRoom} />
     </section>
   );
 };
