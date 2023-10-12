@@ -1,11 +1,17 @@
 /**
- * Common util functions for game
+ * Common util functions and variables for game
  */
 
 
 
 export const PLAYER_X = "X";
 export const PLAYER_O = "O";
+
+export const GAME_STATUS = {
+  WIN: "You win!",
+  LOSE: "You lost",
+  DRAW: "It's a draw!",
+}
 
 /**
  * Checks if the game is won by a player given a board state
