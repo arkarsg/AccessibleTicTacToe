@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import RoomList from "./RoomList";
 
 const Welcome = () => {
   return (
@@ -22,8 +23,9 @@ const Welcome = () => {
           </p>
         </div>
       </div>
-      <div className="absolute relative px-10 md:w-1/2 flex flex-col">
-        <Link to="/">
+      <div className="absolute relative px-10 md:w-1/2 space-y-5 flex flex-col">
+        <RoomList />
+        <Link to="/game">
           <button className="inset-x-0 bottom-0 flex w-full justify-center rounded-md px-3 py-1.5 bg-gradient-to-r from-fuchsia-700 to-purple-600 text-white text-m font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
             Create Room
           </button>
