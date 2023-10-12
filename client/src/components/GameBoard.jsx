@@ -9,7 +9,7 @@ const GameBoard = ({ room }) => {
   /* Players in the room, the client and opponent (if any) */
   const [players, setPlayers] = useState([]);
   /** Whether it is the client's or opponent's turn to move */
-  const [turn, setTurn] = useState(PLAYER_X);
+  const [turn, setTurn] = useState("X");
   /* Sign of client's piece, initialise to "" as you can be either X or O at the start */
   const [myPlayerSign, setMyPlayerSign] = useState("");
   /* Status of the game using enums */
@@ -39,17 +39,20 @@ const GameBoard = ({ room }) => {
      */
     socket.on("updateGame", (gameState) => {
       setGameState(gameState.tiles);
-      setTurn(gameState.player);
+      setTurn(gameState.opponent);
       // The opponent just made the move. Now, the client should be able to make a move
       setIsActive(true);
+      if (gameStatus !== "") {
+        setIsActive(false);
+      }
     });
 
     /**
      * Listens to updates in the status of the game
      */
     socket.on("updateStatus", (newGameStatus) => {
-      console.log(newGameStatus);
-      setGameStatus(newGameStatus);
+      setGameStatus((prevState) => prevState = newGameStatus);
+      setIsActive(false);
     });
 
     return () => {
@@ -57,7 +60,7 @@ const GameBoard = ({ room }) => {
       socket.off("joinRoom");
       socket.off("updateStatus");
     };
-  }, [socket]);
+  }, [socket, gameStatus]);
 
   const handleTileClick = (i) => {
     if (isActive && gameState[i] === "") {
@@ -74,6 +77,8 @@ const GameBoard = ({ room }) => {
         player: myPlayerSign,
         opponent: opponentSign,
       });
+      // pass the turn to opponent
+      setTurn(opponentSign);
       // After making a move, the client should not be able to make a move again
       setIsActive(false);
     }
@@ -101,6 +106,11 @@ const GameBoard = ({ room }) => {
       </div>
     </div>
   );
+};
+
+const switchPlayer = (player) => {
+  const nextPlayer = player === "O" ? "X" : "O";
+  return nextPlayer;
 };
 
 export default GameBoard;

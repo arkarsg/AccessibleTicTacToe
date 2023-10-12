@@ -30,11 +30,21 @@ function setupSocketServer(httpServer) {
     });
 
     socket.on("playTile", ({ room, tiles, player, opponent }) => {
+      if (gameUtils.winCheck(tiles, player)) {
+        /** player made the winning move */
+        // reflexively declare self as winner
+        io.sockets.sockets
+          .get(socket.id)
+          .emit("updateStatus", gameUtils.GAME_STATUS.WIN);
+        // declare other sockets as non-winner
+        socket
+          .to(room)
+          .emit("updateStatus", gameUtils.GAME_STATUS.LOSE);
+      } else if (gameUtils.drawCheck(tiles)) {
+        io.sockets.in(room).emit("updateStatus", gameUtils.GAME_STATUS.DRAW);
+      }
+      // still broadcast the updated tiles to other sockets
       socket.broadcast.to(room).emit("updateGame", { tiles, opponent });
-    });
-
-    socket.on("changeStatus", (message) => {
-      socket.broadcast.to(room).emit("updateStatus", message);
     });
 
     socket.on("disconnect", () => {
