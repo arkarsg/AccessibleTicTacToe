@@ -14,7 +14,7 @@ const Welcome = () => {
           </p>
         </div>
         <div>
-          <h2 className="max-w text-2xl text-zinc-800 font-bold text-left sm:text-xl">
+          <h2 className="max-w text-2xl text-zinc-900 font-bold text-left sm:text-xl">
             How to play?
           </h2>
           <p className="mt-3 py-0 text-zinc-700 text-left text-base font-semibold">

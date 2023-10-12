@@ -61,7 +61,7 @@ const GameBoard = ({ room }) => {
     <div>
       <div className="container flex flex-col md:flex-row mt-20 mx-auto">
         <div className="container w-full md:w-1/4 p-4 border-b-2 md:border-r-2 md:border-b-0 border-zinc-200 justify-center mx-auto">
-          <h3 className="text-xl text-zinc-800 font-semibold mb-1">Players</h3>
+          <h3 className="text-xl text-zinc-700 font-semibold mb-1">Players</h3>
           <ul>
             {players.map((memberId) => (
               <li key={memberId}>{memberId}</li>
@@ -72,7 +72,7 @@ const GameBoard = ({ room }) => {
           <Board tiles={tiles} handleTileClick={handleTileClick} />
         </div>
         <div className="container w-full md:w-1/4 p-4 border-b-2 md:border-r-2 md:border-b-0 border-zinc-200 mx-auto">
-          <h3 className="text-xl text-zinc-800 font-semibold mb-1">
+          <h3 className="text-xl text-zinc-700 font-semibold mb-1">
             Game History
           </h3>
         </div>
