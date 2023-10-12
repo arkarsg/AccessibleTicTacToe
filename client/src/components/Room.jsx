@@ -1,37 +1,19 @@
-import { useContext, useState, useEffect, useCallback } from "react";
-import { SocketContext } from "../context/socket";
+import GameBoard from "./GameBoard";
 
-const Room = ({ room }) => {
-  const socket = useContext(SocketContext);
-  const [roomMembers, setRoomMembers] = useState([]);
-
-  const handleRoomMember = useCallback((members) => {
-    console.log(members);
-  }, []);
-
-  useEffect(() => {
-    if (room) {
-      socket.emit("join", room);
-    }
-    socket.on("roomMembers", (members) => {
-      handleRoomMember(members);
-    });
-
-    return () => {
-      socket.off("roomMembers");
-
-    };
-  }, []);
+const Room = () => {
+  const dummyRoom = 1;
   return (
-    <div>
-      <h1>Room: {room}</h1>
-      <h2>Room Members:</h2>
-      <ul>
-        {roomMembers.map((memberId) => (
-          <li key={memberId}>{memberId}</li>
-        ))}
-      </ul>
-    </div>
+    <section>
+      <div className="mt-10 text-center py-4">
+        {/* Room information */}
+        <h2 className="text-3xl text-zinc-800 font-semibold">
+          <span className="rounded-full bg-neutral-50 px-10 py-5">
+            Playing in room {dummyRoom}
+          </span>
+        </h2>
+      </div>
+      <GameBoard />
+    </section>
   );
 };
 

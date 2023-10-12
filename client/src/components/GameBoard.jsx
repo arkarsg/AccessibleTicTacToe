@@ -46,7 +46,6 @@ const GameBoard = ({ room }) => {
         tiles: nextTiles,
         player: switchPlayer(player),
       });
-
     }
   };
 
@@ -54,22 +53,30 @@ const GameBoard = ({ room }) => {
     if (winCheck(tiles, player)) {
       setGameStatus(`Winner: ${player}`);
     } else if (drawCheck(tiles)) {
-      setGameStatus("Game ended in a draw")
+      setGameStatus("Game ended in a draw");
     }
-  }, [tiles, player])
+  }, [tiles, player]);
 
   return (
     <div>
-      <h1>Accessible Tic Tac Toe for screen readers</h1>
-      <h1>Room: {room}</h1>
-      <Board tiles={tiles} handleTileClick={handleTileClick} />
-      <h2>{gameStatus}</h2>
-      <h2>{player}</h2>
-      <ul>
-        {players.map((memberId) => (
-          <li key={memberId}>{memberId}</li>
-        ))}
-      </ul>
+      <div className="container flex flex-col md:flex-row mt-20 mx-auto">
+        <div className="container w-full md:w-1/4 p-4 border-b-2 md:border-r-2 md:border-b-0 border-zinc-200 justify-center mx-auto">
+          <h3 className="text-xl text-zinc-800 font-semibold mb-1">Players</h3>
+          <ul>
+            {players.map((memberId) => (
+              <li key={memberId}>{memberId}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="container w-full md:w-1/2 p-4 border-b-2 md:border-r-2 md:border-b-0 border-zinc-200 items-center space-y-10 mx-auto">
+          <Board tiles={tiles} handleTileClick={handleTileClick} />
+        </div>
+        <div className="container w-full md:w-1/4 p-4 border-b-2 md:border-r-2 md:border-b-0 border-zinc-200 mx-auto">
+          <h3 className="text-xl text-zinc-800 font-semibold mb-1">
+            Game History
+          </h3>
+        </div>
+      </div>
     </div>
   );
 };
