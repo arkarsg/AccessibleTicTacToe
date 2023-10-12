@@ -3,7 +3,7 @@ import Tile from "./Tile";
 const Board = ({tiles, handleTileClick}) => {
   return (
     <>
-      <div className="board">
+      <div className="grid grid-cols-3 mx-auto w-64 border-black border-solid border-2">
         <Tile onClick={() => handleTileClick(0)} value={tiles[0]} />
         <Tile onClick={() => handleTileClick(1)} value={tiles[1]} />
         <Tile onClick={() => handleTileClick(2)} value={tiles[2]} />
