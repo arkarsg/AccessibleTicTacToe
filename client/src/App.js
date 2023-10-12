@@ -1,6 +1,6 @@
 import { SocketContext, socket } from "./context/socket";
-import GameBoard from "./components/GameBoard";
-import Room from "./components/Room";
+import { BrowserRouter as Router } from "react-router-dom";
+import NavBar from "./components/NavBar";
 
 import "./App.css";
 
@@ -13,9 +13,9 @@ function App() {
 
   return (
     <SocketContext.Provider value={socket}>
-      <div>
-        <GameBoard room={dummyRoom} />
-      </div>
+      <Router>
+        <NavBar />
+      </Router>
     </SocketContext.Provider>
   );
 }
