@@ -2,6 +2,10 @@
 
 Designing and implementing a website inclusive to screen reader users.
 
+<p align="center">
+  <img src="https://github.com/arkarsg/AccessibleTicTacToe/blob/main/assets/Screenshot%202023-10-13%20at%209.55.41%20PM.png" width="640" alt="Home"/>
+</p>
+	
 ## Requirements
 - [x] User should be able to play a tic-tac-toe game
 - [x] User should be able to play a tic-tac-toe game with another player simultaneously
