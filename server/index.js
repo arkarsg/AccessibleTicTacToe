@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const { setupSocketServer } = require("./socketServer");
 const PlayerModel = require("./models/Player");
 const RoomModel = require("./models/Room");
+const routes = require("./routes");
 
 require("dotenv").config({ path: "./.env" });
 
@@ -51,17 +52,7 @@ async function populateData() {
 
 populateData();
 
-app.get("/getRooms", (req, res) => {
-  RoomModel.find()
-    .then((rooms) => res.json(rooms))
-    .catch((err) => res.json(err));
-});
-
-app.get("/getPlayers", (req, res) => {
-  PlayerModel.find()
-    .then((players) => res.json(players))
-    .catch((err) => res.json(err));
-});
+routes(app);
 
 const server = http.createServer(app);
 setupSocketServer(server);
