@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 const NavBar = () => {
   return (
+    // NavBar is a landmark
     <nav className="bg-gradient-to-b from-zinc-100 to-bg-transparent">
       <div className="max-w-7xl mx-auto py-7 px-7 sm:px-4 flex justify-center">
         <div className="absolute inset-x-0 top-2 h-16 px-10">
