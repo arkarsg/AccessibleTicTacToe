@@ -14,7 +14,6 @@ const playersController = {
       .catch((err) => res.json(err));
   },
   getOne: (req, res) => {
-    console.log(req.params.id);
     PlayerModel.findOne({ sid: req.params.id })
       .then((player) => {
         res.json(player);
