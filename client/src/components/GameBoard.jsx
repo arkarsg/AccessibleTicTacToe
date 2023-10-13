@@ -105,20 +105,28 @@ const GameBoard = ({ room, myPlayer }) => {
         <div
           role="region"
           aria-label="Players in game"
-          className="container w-full md:w-1/4 p-4 border-b-2 md:border-r-2 md:border-b-0 border-zinc-200 justify-center mx-auto"
+          className="container w-full md:w-1/4 p-4 border-b-2 md:border-r-2 md:border-b-0 border-zinc-200 justify-center mx-auto space-y-5"
         >
           <h3 className="text-xl text-zinc-700 font-semibold mb-1">Players</h3>
-          <ul>
-            {players.map((socketId) => (
-              <li key={socketId}>
-                {socketId === socket.id
-                  ? myPlayerSign + " " + generateRandomAnimal() + " (You)"
-                  : switchPlayer(myPlayerSign) + " " + 
-                    generateRandomAnimal() +
-                    " (Opponent)"}
-              </li>
-            ))}
-          </ul>
+          <div className="relative overflow-x-auto rounded-lg">
+            <table className="w-full text-s text-left text-zinc-700 font-medium border">
+              <thead className="text-sm text=zinc-600 bg-slate-90"> 
+                <tr className="bg-neutral-50">
+                  <th scope="col" className="px-6 py-3">Sign</th>
+                  <th scope="col" className="px-6 py-3">Player</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {players.map((socketId) => (
+                    <tr className="border-b" key={socketId}>
+                      <th scope="row" className="px-6 py-4 font-medium text-zinc-900">{socketId === socket.id ? myPlayerSign : switchPlayer(myPlayerSign)}</th>
+                      <td className="px-6 py-4">{socketId === socket.id ? generateRandomAnimal() + " (You)" : generateRandomAnimal() + " (Opponent)"}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+          <ul></ul>
         </div>
         <div
           role="region"
@@ -136,11 +144,14 @@ const GameBoard = ({ room, myPlayer }) => {
         <div
           role="complementary"
           aria-label="Game History"
-          className="container w-full md:w-1/4 p-4 border-b-2 md:border-r-2 md:border-b-0 border-zinc-200 mx-auto"
+          className="container w-full md:w-1/4 p-4 border-b-2 md:border-r-2 md:border-b-0 border-zinc-200 mx-auto space-y-5"
         >
           <h3 className="text-xl text-zinc-700 font-semibold mb-1">
             Game History
           </h3>
+          <div className="relative rounded-lg p-4 border rounded-lg">
+            <h2 className="text-lg font-semibold text-zinc-700">Coming soon.. Yet to be implemented</h2>
+          </div>
         </div>
       </div>
     </div>
