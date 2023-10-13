@@ -22,7 +22,7 @@ Designing and implementing a website inclusive to screen reader users.
 # Running on your device
 
 #### Setting up the local database
-1. Ensure that you have `MongoDB Community Edition` and its CLI application on your device. For instructions please refer to this [[https://www.mongodb.com/docs/v7.0/tutorial/install-mongodb-on-os-x/ | guide]]
+1. Ensure that you have `MongoDB Community Edition` and its CLI application on your device. For instructions please refer to this ![guide]("https://www.mongodb.com/docs/v7.0/tutorial/install-mongodb-on-os-x/")
 2. Create a database and give it a name, such as *tic-tac-toe*
 3. Keep the database running in the background
 
@@ -88,6 +88,11 @@ First, the colour scheme chosen should have suitable level of contrast. The same
 Next, I added `aria-labels` for screen readers to have a better flow and inform them about what the region holds.
 
 Last, I added keyboard support to navigate and play tic-tac-toe.
+
+<img src='assets/tailwindzinc700.png' width='300'>
+<img src='assets/tailwindzinc900.png' width='300'>
+<img src='assets/zinc600onslate90.png' width='300'>
+<img src='assets/zinc700onneutral50.png' width='300'>
 
 
 ---
