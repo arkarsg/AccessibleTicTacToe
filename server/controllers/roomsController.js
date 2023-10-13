@@ -15,16 +15,12 @@ const roomsController = {
   },
   update: (req, res) => {
     RoomModel.findOneAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true },
-      (err, room) => {
-        if (err) {
-          return res.json(err);
-        }
-        res.json(room);
-      }
-    );
+      { roomId: req.body.roomId }, // filter param
+      { $push: { players: req.body.player } }, // new list of players
+      { new: true }
+    ).then((room) => {
+      res.json(room);
+    }).catch((err) => res.json(err));
   },
   getOne: (req, res) => {
     RoomModel.findOne({ roomId: req.params.id })
