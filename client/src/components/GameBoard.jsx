@@ -51,7 +51,7 @@ const GameBoard = ({ room }) => {
      * Listens to updates in the status of the game
      */
     socket.on("updateStatus", (newGameStatus) => {
-      setGameStatus((prevState) => prevState = newGameStatus);
+      setGameStatus((prevState) => (prevState = newGameStatus));
       setIsActive(false);
     });
 
@@ -86,8 +86,15 @@ const GameBoard = ({ room }) => {
 
   return (
     <div>
-      <div className="container flex flex-col md:flex-row mt-20 mx-auto">
-        <div className="container w-full md:w-1/4 p-4 border-b-2 md:border-r-2 md:border-b-0 border-zinc-200 justify-center mx-auto">
+      <div
+        role="main"
+        className="container flex flex-col md:flex-row mt-20 mx-auto"
+      >
+        <div
+          role="region"
+          aria-label="Players in game"
+          className="container w-full md:w-1/4 p-4 border-b-2 md:border-r-2 md:border-b-0 border-zinc-200 justify-center mx-auto"
+        >
           <h3 className="text-xl text-zinc-700 font-semibold mb-1">Players</h3>
           <ul>
             {players.map((memberId) => (
@@ -95,10 +102,19 @@ const GameBoard = ({ room }) => {
             ))}
           </ul>
         </div>
-        <div className="container w-full md:w-1/2 p-4 border-b-2 md:border-r-2 md:border-b-0 border-zinc-200 items-center space-y-10 mx-auto">
+        <div
+          role="region"
+          aria-label="Tic Tac Toe board"
+          className="container w-full md:w-1/2 p-4 border-b-2 md:border-r-2 md:border-b-0 border-zinc-200 items-center space-y-10 mx-auto"
+        >
+          <h3 className="text-center text-xl text-zinc-700 font-semibold mb-1">Waiting for game to start...</h3>
           <Board tiles={gameState} handleTileClick={handleTileClick} />
         </div>
-        <div className="container w-full md:w-1/4 p-4 border-b-2 md:border-r-2 md:border-b-0 border-zinc-200 mx-auto">
+        <div
+          role="complementary"
+          aria-label="Game History"
+          className="container w-full md:w-1/4 p-4 border-b-2 md:border-r-2 md:border-b-0 border-zinc-200 mx-auto"
+        >
           <h3 className="text-xl text-zinc-700 font-semibold mb-1">
             Game History
           </h3>
