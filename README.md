@@ -89,7 +89,7 @@ When designing with accessibility in mind, it should be pleasant for both screen
 
 First, the colour scheme chosen should have suitable level of contrast. The same goes for font weights and sizes.
 
-Next, I added `aria-labels` for screen readers to have a better flow and inform them about what the region holds.
+Next, I added `aria-labels` for screen readers to have a better flow and inform them about what the region holds. Then, I used ChromeVox, a web based screen reader to test the flow of information.
 
 Last, I added keyboard support to navigate and play tic-tac-toe.
 
