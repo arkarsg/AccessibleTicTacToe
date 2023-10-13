@@ -8,7 +8,7 @@ const RoomList = () => {
 
   useEffect(() => {
     axios
-      .get(WS_SERVER + "/getRooms")
+      .get(WS_SERVER + "/rooms")
       .then((rooms) => setRooms(rooms.data))
       .catch((err) => console.log(err));
   }, []);
