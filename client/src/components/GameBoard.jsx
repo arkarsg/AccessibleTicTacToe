@@ -91,7 +91,7 @@ const GameBoard = ({ room }) => {
   };
 
   useEffect(() => {
-    if (players.length == 2) {
+    if (players.length === 2) {
       setIsActive(true);
       setTurnMessage("Game started!");
     }
