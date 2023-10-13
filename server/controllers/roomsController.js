@@ -1,13 +1,10 @@
-const RoomModel = require("./models/Room");
+const RoomModel = require("../models/Room");
 
 const roomsController = {
   getAll: async (req, res) => {
-    RoomModel.find({}, (err, rooms) => {
-      if (err) {
-        return res.json(err);
-      }
-      res.json(rooms);
-    });
+    RoomModel.find()
+      .then((rooms) => res.json(rooms))
+      .catch((err) => res.json(err));
   },
   create: (req, res) => {
     RoomModel.create(req.body, (err, room) => {
@@ -26,8 +23,17 @@ const roomsController = {
         if (err) {
           return res.json(err);
         }
-        response.json(room);
+        res.json(room);
       }
     );
   },
+  getOne: (req, res) => {
+    RoomModel.findOne({ roomId: req.params.id })
+      .then((room) => {
+        res.json(room);
+      })
+      .catch((err) => res.json(err));
+  },
 };
+
+module.exports = roomsController;
