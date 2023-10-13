@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import RoomList from "./RoomList";
 import { WS_SERVER } from "../utils/config";
 import axios from "axios";
