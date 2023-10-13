@@ -22,20 +22,20 @@ async function populateData() {
 
     if (playerCount === 0) {
       const botPlayer = new PlayerModel({
-        username: "Bot Player"
-      })
+        username: "Bot Player",
+      });
       const botGamer = new PlayerModel({
-        username: "Bot Gamer"
-      })
+        username: "Bot Gamer",
+      });
       await botPlayer.save();
       await botGamer.save();
     }
     if (roomCount === 0) {
-      const botPlayer = await PlayerModel.findOne({username: "Bot Player"});
-      const botGamer = await PlayerModel.findOne({ username: "Bot Gamer"});
+      const botPlayer = await PlayerModel.findOne({ username: "Bot Player" });
+      const botGamer = await PlayerModel.findOne({ username: "Bot Gamer" });
       const ServerCreatedFullGame = new RoomModel({
         roomId: 1,
-        players: [botPlayer, botGamer]
+        players: [botPlayer, botGamer],
       });
       const ServerCreatedEmptyGame = new RoomModel({
         roomId: 2,
@@ -54,6 +54,12 @@ populateData();
 app.get("/getRooms", (req, res) => {
   RoomModel.find()
     .then((rooms) => res.json(rooms))
+    .catch((err) => res.json(err));
+});
+
+app.get("/getPlayers", (req, res) => {
+  PlayerModel.find()
+    .then((players) => res.json(players))
     .catch((err) => res.json(err));
 });
 
