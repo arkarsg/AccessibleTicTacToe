@@ -8,12 +8,10 @@ const playersController = {
   },
   create: async (req, res) => {
     let newPlayer = new PlayerModel(req.body);
-    newPlayer.save((err, player) => {
-      if (err) {
-        res.send(err);
-      }
-      res.json(player);
-    });
+    newPlayer
+      .save()
+      .then(() => res.json(newPlayer))
+      .catch((err) => res.json(err));
   },
   getOne: (req, res) => {
     console.log(req.params.id);
