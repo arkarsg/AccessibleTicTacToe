@@ -9,11 +9,13 @@ const NavBar = () => {
     >
       <div className="max-w-7xl mx-auto py-7 px-7 sm:px-4 flex justify-center">
         <div className="absolute inset-x-0 top-2 h-16 px-10">
-          <Link aria-label="Home" to="/" className="flex gap-2 items-center">
-            <p className="bg-clip-text bg-gradient-to-r from-fuchsia-700 to-purple-600 text-2xl font-extrabold text-transparent md:block">
-              Accessible Tic Tac Toe
-            </p>
-          </Link>
+          <p>
+            <Link aria-label="Home" to="/" className="flex gap-2 items-center">
+              <span className="bg-clip-text bg-gradient-to-r from-fuchsia-700 to-purple-600 text-2xl font-extrabold text-transparent md:block">
+                Accessible Tic Tac Toe
+              </span>
+            </Link>
+          </p>
         </div>
       </div>
     </nav>
