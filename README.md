@@ -46,7 +46,7 @@ CLIENT='http://localhost:<client-port>'
 ```
 5. Run `node index.js` to start your backend server.
 
-#### Setting up the backend
+#### Setting up the frontend
 1. In `client` folder, run `npm start`
 2. Ensure that the port numbers in `server`‘s `.env` and client’s match. As well as, `config.js` in `client`
 
