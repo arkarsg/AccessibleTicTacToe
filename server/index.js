@@ -23,9 +23,11 @@ async function populateData() {
 
     if (playerCount === 0) {
       const botPlayer = new PlayerModel({
+        sid: "bb111",
         username: "Bot Player",
       });
       const botGamer = new PlayerModel({
+        sid: "aa111",
         username: "Bot Gamer",
       });
       await botPlayer.save();

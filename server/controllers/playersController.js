@@ -17,7 +17,7 @@ const playersController = {
   },
   getOne: (req, res) => {
     console.log(req.params.id);
-    PlayerModel.findOne({ _id: req.params.id })
+    PlayerModel.findOne({ sid: req.params.id })
       .then((player) => {
         res.json(player);
       })
