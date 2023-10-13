@@ -12,7 +12,7 @@ function App() {
         <SocketContext.Provider value={socket}>
           <Routes>
             <Route path="/" element={<Welcome />} />
-            <Route path="/game" element={<Room />} />
+            <Route path="/rooms/:id" element={<Room />} />
           </Routes>
         </SocketContext.Provider>
       </BrowserRouter>

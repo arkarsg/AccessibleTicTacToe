@@ -7,12 +7,11 @@ const roomsController = {
       .catch((err) => res.json(err));
   },
   create: (req, res) => {
-    RoomModel.create(req.body, (err, room) => {
-      if (err) {
-        return res.json(err);
-      }
-      res.json(room);
-    });
+    let newRoom = new RoomModel(req.body);
+    newRoom
+      .save()
+      .then(() => res.json(newRoom))
+      .catch((err) => res.json(err));
   },
   update: (req, res) => {
     RoomModel.findOneAndUpdate(

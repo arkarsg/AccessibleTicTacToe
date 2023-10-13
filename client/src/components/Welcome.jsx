@@ -1,7 +1,18 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import RoomList from "./RoomList";
+import { WS_SERVER } from "../utils/config";
+import axios from "axios";
 
 const Welcome = () => {
+  const navigate = useNavigate()
+  const [myRoomId, setMyRoomId] = useState(null);
+  const handleRoomCreationAndJoin = async () => {
+    const newRoom = { roomId: Math.floor(Math.random() * 100), players: [] };
+    // update the db for rooms
+    await axios.post(WS_SERVER + "/rooms", newRoom).then(res => setMyRoomId(res.data.roomId));
+    navigate(`/rooms/${myRoomId}`); 
+  };
   return (
     /**
      * Welcome page has 2 region: 1 for gameplay tutorial and 1 for rooms and create room option
@@ -36,11 +47,9 @@ const Welcome = () => {
         className="absolute relative px-10 md:w-1/2 space-y-5 flex flex-col"
       >
         <RoomList />
-        <Link to="/game">
-          <button className="inset-x-0 bottom-0 flex w-full justify-center rounded-md px-3 py-1.5 bg-gradient-to-r from-fuchsia-700 to-purple-600 text-white text-m font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+          <button onClick={handleRoomCreationAndJoin} className="inset-x-0 bottom-0 flex w-full justify-center rounded-md px-3 py-1.5 bg-gradient-to-r from-fuchsia-700 to-purple-600 text-white text-m font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
             Create Room
           </button>
-        </Link>
       </div>
     </div>
   );
