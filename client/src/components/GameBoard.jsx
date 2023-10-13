@@ -1,9 +1,9 @@
 import { useState, useContext, useEffect } from "react";
 import Board from "./Board";
-import { SocketContext } from "../context/socket";
+import { socket } from "../context/socket";
+import generateRandomAnimal from "random-animal-name";
 
-const GameBoard = ({ room }) => {
-  const socket = useContext(SocketContext);
+const GameBoard = ({ room, myPlayer }) => {
   /* State of the game */
   const [gameState, setGameState] = useState(Array(9).fill(""));
   /* Players in the room, the client and opponent (if any) */
@@ -26,7 +26,6 @@ const GameBoard = ({ room }) => {
      * Listens to another client to join the room
      */
     socket.on("joinRoom", (playersInGame) => {
-      console.log(playersInGame);
       setPlayers(playersInGame);
     });
 
@@ -110,8 +109,14 @@ const GameBoard = ({ room }) => {
         >
           <h3 className="text-xl text-zinc-700 font-semibold mb-1">Players</h3>
           <ul>
-            {players.map((memberId) => (
-              <li key={memberId}>{memberId}</li>
+            {players.map((socketId) => (
+              <li key={socketId}>
+                {socketId === socket.id
+                  ? myPlayerSign + " " + generateRandomAnimal() + " (You)"
+                  : switchPlayer(myPlayerSign) + " " + 
+                    generateRandomAnimal() +
+                    " (Opponent)"}
+              </li>
             ))}
           </ul>
         </div>
@@ -120,8 +125,11 @@ const GameBoard = ({ room }) => {
           aria-label="Tic Tac Toe board"
           className="container w-full md:w-1/2 p-4 border-b-2 md:border-r-2 md:border-b-0 border-zinc-200 items-center space-y-10 mx-auto"
         >
-          <h3 aria-live="polite" className="text-center text-xl text-zinc-700 font-semibold mb-1">
-            {turnMessage}
+          <h3
+            aria-live="polite"
+            className="text-center text-xl text-zinc-700 font-semibold mb-1"
+          >
+            {gameStatus === "" ? turnMessage : gameStatus}
           </h3>
           <Board tiles={gameState} handleTileClick={handleTileClick} />
         </div>
