@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Board from "./Board";
 import { socket } from "../context/socket";
 import generateRandomAnimal from "random-animal-name";
@@ -9,6 +9,7 @@ const GameBoard = ({ room, myPlayer }) => {
   /* Players in the room, the client and opponent (if any) */
   const [players, setPlayers] = useState([]);
   /** Whether it is the client's or opponent's turn to move */
+  // eslint-disable-next-line
   const [turn, setTurn] = useState("X");
   /* Sign of client's piece, initialise to "" as you can be either X or O at the start */
   const [myPlayerSign, setMyPlayerSign] = useState("");
@@ -64,7 +65,7 @@ const GameBoard = ({ room, myPlayer }) => {
       socket.off("joinRoom");
       socket.off("updateStatus");
     };
-  }, [socket, gameStatus]);
+  }, [gameStatus]);
 
   const handleTileClick = (i) => {
     if (isActive && gameState[i] === "") {

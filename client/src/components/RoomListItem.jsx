@@ -1,6 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { WS_SERVER } from "../utils/config";
-import axios from "axios";
 
 const RoomListItem = ({ roomId, numPlayers }) => {
   const navigate = useNavigate();
