@@ -38,13 +38,13 @@ Designing and implementing a website inclusive to screen reader users.
 ```
 cd AccessibleTicTacToe/server
 ```
-4. The application makes use `.env` file in `server` folder. The following is an example `.env` file
+5. The application makes use `.env` file in `server` folder. The following is an example `.env` file
 ```
 MONGO_URL="mongodb://<your-local-host>/<your-databse-name>"
 PORT=<your-preferred-port>
 CLIENT='http://localhost:<client-port>'
 ```
-5. Run `node index.js` to start your backend server.
+6. Run `node index.js` to start your backend server.
 
 #### Setting up the frontend
 1. In `client` folder, run `npm start`
