@@ -1,10 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { WS_SERVER } from "../utils/config";
-import { socket } from "../context/socket";
-import { useEffect } from "react";
 import RoomList from "./RoomList";
 import axios from "axios";
-import generateRandomAnimal from "random-animal-name";
 
 const Welcome = () => {
   const navigate = useNavigate();
@@ -16,14 +13,6 @@ const Welcome = () => {
       .post(WS_SERVER + "/rooms", newRoom)
       .then((res) => navigate(`/rooms/${res.data.roomId}`));
   };
-
-  // Pseudo-sign in the player
-  useEffect(() => {
-    const newPlayer = { sid: socket.id, username: generateRandomAnimal() };
-    axios
-      .post(WS_SERVER + "/players", newPlayer)
-      .catch((err) => console.log("Something went wrong..."));
-  });
 
   return (
     /**
