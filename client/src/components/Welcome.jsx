@@ -21,7 +21,7 @@ const Welcome = () => {
     <div
       role="main"
       aria-label="welcome"
-      className="w-fit relative container flex flex-col items-center px-6 py-20 sm:py-10 mx-auto mt-10 md:space-y-0 md:flex-row"
+      className="w-fit relative container flex flex-col items-center px-6 space-x-5  py-20 sm:py-10 mx-auto mt-10 sm:space-y-10 md:space-y-5 md:flex-row"
     >
       <div
         role="region"
@@ -45,7 +45,7 @@ const Welcome = () => {
       <div
         role="region"
         aria-label="join-or-create-games"
-        className="absolute relative px-10 md:w-1/2 space-y-5 flex flex-col"
+        className="px-6 md:w-1/2 space-y-5 flex flex-col mt-10"
       >
         <RoomList />
         <button

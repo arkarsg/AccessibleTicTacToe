@@ -23,7 +23,7 @@ const RoomListItem = ({ roomId, numPlayers }) => {
       <span className="sr-only">{numPlayers} out of 2 players</span>
       <button
         type="button"
-        className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-4 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
+        className="whitespace-nowrap py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-4 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
         onClick={handleRoomJoin}
         disabled={numPlayers === 2 ? true : false}
       >

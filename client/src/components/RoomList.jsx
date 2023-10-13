@@ -14,7 +14,7 @@ const RoomList = () => {
   }, []);
 
   return (
-    <ul>
+    <ul className="flex-wrap space-y-3">
       {rooms.map(({ roomId, players }) => (
         <li key={roomId}>
           <RoomListItem roomId={roomId} numPlayers={players.length} />
