@@ -14,8 +14,12 @@ const GameBoard = ({ room }) => {
   const [myPlayerSign, setMyPlayerSign] = useState("");
   /* Status of the game using enums */
   const [gameStatus, setGameStatus] = useState("");
-  /* Whether the game is still active -- initialise to false, assume there is only one player */
-  const [isActive, setIsActive] = useState(true);
+  /* Whether the game is still active */
+  const [isActive, setIsActive] = useState(false);
+  /* Turn message */
+  const [turnMessage, setTurnMessage] = useState(
+    "Waiting for game to start..."
+  );
 
   useEffect(() => {
     /**
@@ -40,6 +44,7 @@ const GameBoard = ({ room }) => {
     socket.on("updateGame", (gameState) => {
       setGameState(gameState.tiles);
       setTurn(gameState.opponent);
+      setTurnMessage(`${gameState.opponent}'s turn`);
       // The opponent just made the move. Now, the client should be able to make a move
       setIsActive(true);
       if (gameStatus !== "") {
@@ -79,10 +84,18 @@ const GameBoard = ({ room }) => {
       });
       // pass the turn to opponent
       setTurn(opponentSign);
+      setTurnMessage(`${opponentSign}'s turn`);
       // After making a move, the client should not be able to make a move again
       setIsActive(false);
     }
   };
+
+  useEffect(() => {
+    if (players.length == 2) {
+      setIsActive(true);
+      setTurnMessage("Game started!");
+    }
+  }, [players]);
 
   return (
     <div>
@@ -107,7 +120,9 @@ const GameBoard = ({ room }) => {
           aria-label="Tic Tac Toe board"
           className="container w-full md:w-1/2 p-4 border-b-2 md:border-r-2 md:border-b-0 border-zinc-200 items-center space-y-10 mx-auto"
         >
-          <h3 className="text-center text-xl text-zinc-700 font-semibold mb-1">Waiting for game to start...</h3>
+          <h3 aria-live="polite" className="text-center text-xl text-zinc-700 font-semibold mb-1">
+            {turnMessage}
+          </h3>
           <Board tiles={gameState} handleTileClick={handleTileClick} />
         </div>
         <div
