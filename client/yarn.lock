@@ -8037,6 +8037,11 @@ raf@^3.4.1:
   dependencies:
     performance-now "^2.1.0"
 
+random-animal-name@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/random-animal-name/-/random-animal-name-0.1.1.tgz"
+  integrity sha512-6LtEegc1FzFsD77WF5KmxhXPCbcI33qlAgxd8aHVrwOW595yh3Kkw52dTaqGmLXb05JiRf1ypzUXPKEosTCoAA==
+
 randombytes@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/randombytes/-/randombytes-2.1.0.tgz"
