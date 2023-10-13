@@ -38,7 +38,7 @@ const Welcome = () => {
           How to play?
         </h2>
         <p className="mt-3 py-0 text-zinc-700 text-left text-base font-semibold">
-          Use the arrow keys on your keyboard and press "Enter" to place your
+          Use the screen reader keys on your keyboard and press "Enter" to place your
           piece
         </p>
       </div>

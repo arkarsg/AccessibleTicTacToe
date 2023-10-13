@@ -3,6 +3,8 @@ import Board from "./Board";
 import { socket } from "../context/socket";
 import generateRandomAnimal from "random-animal-name";
 
+const ANIMALS = [generateRandomAnimal(), generateRandomAnimal()];
+
 const GameBoard = ({ room, myPlayer }) => {
   /* State of the game */
   const [gameState, setGameState] = useState(Array(9).fill(""));
@@ -111,19 +113,34 @@ const GameBoard = ({ room, myPlayer }) => {
           <h3 className="text-xl text-zinc-700 font-semibold mb-1">Players</h3>
           <div className="relative overflow-x-auto rounded-lg">
             <table className="w-full text-s text-left text-zinc-700 font-medium border">
-              <thead className="text-sm text=zinc-600 bg-slate-90"> 
+              <thead className="text-sm text=zinc-600 bg-slate-90">
                 <tr className="bg-neutral-50">
-                  <th scope="col" className="px-6 py-3">Sign</th>
-                  <th scope="col" className="px-6 py-3">Player</th>
+                  <th scope="col" className="px-6 py-3">
+                    Sign
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Player
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                  {players.map((socketId) => (
-                    <tr className="border-b" key={socketId}>
-                      <th scope="row" className="px-6 py-4 font-medium text-zinc-900">{socketId === socket.id ? myPlayerSign : switchPlayer(myPlayerSign)}</th>
-                      <td className="px-6 py-4">{socketId === socket.id ? generateRandomAnimal() + " (You)" : generateRandomAnimal() + " (Opponent)"}</td>
-                    </tr>
-                  ))}
+                {players.map((socketId) => (
+                  <tr className="border-b" key={socketId}>
+                    <th
+                      scope="row"
+                      className="px-6 py-4 font-medium text-zinc-900"
+                    >
+                      {socketId === socket.id
+                        ? myPlayerSign
+                        : switchPlayer(myPlayerSign)}
+                    </th>
+                    <td className="px-6 py-4">
+                      {socketId === socket.id
+                        ? ANIMALS[0] + " (You)"
+                        : ANIMALS[1] + " (Opponent)"}
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -151,7 +168,9 @@ const GameBoard = ({ room, myPlayer }) => {
             Game History
           </h3>
           <div className="relative rounded-lg p-4 border rounded-lg">
-            <h2 className="text-lg font-semibold text-zinc-700">Coming soon.. Yet to be implemented</h2>
+            <h2 className="text-lg font-semibold text-zinc-700">
+              Coming soon.. Yet to be implemented
+            </h2>
           </div>
         </div>
       </div>
