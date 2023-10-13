@@ -9,12 +9,19 @@ const playersController = {
   create: async (req, res) => {
     let newPlayer = new PlayerModel(req.body);
     newPlayer.save((err, player) => {
-        if (err) {
-            res.send(err);
-        }
+      if (err) {
+        res.send(err);
+      }
+      res.json(player);
+    });
+  },
+  getOne: (req, res) => {
+    console.log(req.params.id);
+    PlayerModel.findOne({ _id: req.params.id })
+      .then((player) => {
         res.json(player);
-    })
-    
+      })
+      .catch((err) => res.json(err));
   },
   update: (req, res) => {
     PlayerModel.findOneAndUpdate(

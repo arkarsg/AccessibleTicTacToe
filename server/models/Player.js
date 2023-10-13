@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const PlayerSchema = new mongoose.Schema({
+  sid: { type: String, unique: true },
   username: String,
 });
 

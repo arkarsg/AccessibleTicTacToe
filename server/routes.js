@@ -12,6 +12,8 @@ const routes = (route) => {
     .post(playersController.create)
     .put(playersController.update);
 
+  route.route("/players/:id").get(playersController.getOne);
+
   route
     .route("/rooms")
     .get(roomsController.getAll)
