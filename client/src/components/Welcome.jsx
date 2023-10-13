@@ -1,10 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import RoomList from "./RoomList";
 import { WS_SERVER } from "../utils/config";
+import { socket } from "../context/socket";
+import { useEffect } from "react";
+import RoomList from "./RoomList";
 import axios from "axios";
+import generateRandomAnimal from "random-animal-name";
 
 const Welcome = () => {
   const navigate = useNavigate();
+
   const handleRoomCreationAndJoin = async () => {
     const newRoom = { roomId: Math.floor(Math.random() * 1000), players: [] };
     // update the db for rooms
@@ -12,6 +16,15 @@ const Welcome = () => {
       .post(WS_SERVER + "/rooms", newRoom)
       .then((res) => navigate(`/rooms/${res.data.roomId}`));
   };
+
+  // Pseudo-sign in the player
+  useEffect(() => {
+    const newPlayer = { sid: socket.id, username: generateRandomAnimal() };
+    axios
+      .post(WS_SERVER + "/players", newPlayer)
+      .catch((err) => console.log("Something went wrong..."));
+  });
+
   return (
     /**
      * Welcome page has 2 region: 1 for gameplay tutorial and 1 for rooms and create room option
